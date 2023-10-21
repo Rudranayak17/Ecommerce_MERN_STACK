@@ -1,0 +1,37 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from React Router
+import './search.css';
+import MetaData from "../layout/MetaData";
+
+const Search = () => {
+    const navigate = useNavigate(); // Use useNavigate hook to get navigation function
+
+    const [keyword, setKeyword] = useState("");
+
+    const searchSubmitHandler = (e) => {
+        e.preventDefault();
+        if (keyword.trim()) {
+            navigate(`/products/${keyword}`);
+        } else {
+            navigate(`/products`);
+        }
+    }
+
+    return (
+        <>
+        <MetaData title={"Search A Product -- ECOMMERCE"}/> 
+            <form onSubmit={searchSubmitHandler} className="searchBox">
+                <input
+                    type="text"
+                    value={keyword}
+                    placeholder="Search a Product ..."
+                    onChange={(e) => setKeyword(e.target.value)}
+                />
+                <input type="submit" value={"Search"} />
+            </form>
+        </>
+    );
+}
+
+export default Search;
